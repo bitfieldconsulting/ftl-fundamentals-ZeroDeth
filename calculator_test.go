@@ -66,3 +66,19 @@ func TestMultiply(t *testing.T) {
 		t.Errorf("want %f, got %f", want, got)
 	}
 }
+
+// Todo: InComplete TestDivide function
+func TestDivide(t *testing.T) {
+	t.Parallel()
+	testCases := []*testCase{
+		{a: 6, b: 0, want: 0, errExpected: true},
+		//{a: 4, b: 2, want: 5.5, errExpected: false},
+	}
+	for _, tc := range testCases {
+		got, err := calculator.Divide(tc.a, tc.b)
+
+		if tc.errExpected && tc.want != got {
+			t.Errorf("Divide(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, got)
+		}
+	}
+}
