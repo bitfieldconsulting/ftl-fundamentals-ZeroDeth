@@ -5,10 +5,12 @@ import (
 	"testing"
 )
 
-type testCases struct {
-	a, b float64
-	want float64
-	name string
+//
+type testCase struct {
+	a, b        float64
+	want        float64
+	name        string
+	errExpected bool
 }
 
 func TestAdd(t *testing.T) {
