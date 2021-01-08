@@ -46,7 +46,7 @@ func TestAddStruct(t *testing.T) {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("%s", tc.name)
-			t.Errorf("Add(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got) // Todo: Why cannot add (tc.name) here
+			t.Errorf("%s: Add(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
 		}
 	}
 }
