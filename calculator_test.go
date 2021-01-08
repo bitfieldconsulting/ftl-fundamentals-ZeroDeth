@@ -2,12 +2,12 @@ package calculator_test
 
 import (
 	"calculator"
-  "math/rand"
-  "testing"
-  "time"
+	"math/rand"
+	"testing"
+	"time"
 )
 
-//
+// Todo:
 type testCase struct {
 	a, b        float64
 	want        float64
@@ -37,17 +37,17 @@ func TestAdd1and1(t *testing.T) {
 func TestAddStruct(t *testing.T) {
 	t.Parallel()
 	testCases := []*testCase{
-		{a: 2, b: 2, want: 4, name: "Two postive numbers that sum to a positive"},
+		{a: 2, b: 2, want: 4, name: "Two positive numbers that sum to a positive"},
 		{a: -1, b: -1, want: -2, name: "Two negative numbers that sum ot a negative"},
 		{a: -5, b: 0, want: 0, name: "Negative and positive number that sum Zero"},
 	}
 
-	// Loopig over test cases
+	// Looping over test cases
 	for _, tc := range testCases {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("want %f, got %f", tc.want, tc.name, got)
-			//t.Errorf("Add(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, tc.name, got)
+			//t.Errorf("Add(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, tc.name, got) //Todo:
 		}
 	}
 }
@@ -56,15 +56,15 @@ func TestAddStruct(t *testing.T) {
 // instead of using prepared cases (you can use the math/rand library for this).
 func TestAddRandom(t *testing.T) {
 	t.Parallel()
-  rand.Seed(time.Now().UTC().UnixNano())
+	rand.Seed(time.Now().UTC().UnixNano())
 
-  for i := 0; i < 100; i++ {
+	for i := 0; i < 100; i++ {
 		a := rand.Float64()
 		b := rand.Float64()
 		sum := a + b
 		got := calculator.Add(a, b)
 		if sum != got {
-      t.Fatalf("Add(%f, %f) ; want %f, got %f", a, b, sum, got)
+			t.Fatalf("Add(%f, %f) ; want %f, got %f", a, b, sum, got)
 		}
 	}
 }
