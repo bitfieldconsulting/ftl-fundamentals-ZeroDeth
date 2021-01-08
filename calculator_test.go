@@ -23,15 +23,6 @@ func TestAdd(t *testing.T) {
 	}
 }
 
-func TestAdd1and1(t *testing.T) {
-	t.Parallel()
-	var want float64 = 2
-	got := calculator.Add(1, 1)
-	if want != got {
-		t.Errorf("want %f, got %f", want, got)
-	}
-}
-
 // Introducing A slice of test Cases
 func TestAddStruct(t *testing.T) {
 	t.Parallel()
