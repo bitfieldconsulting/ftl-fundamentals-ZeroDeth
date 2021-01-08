@@ -36,7 +36,6 @@ func TestAddStruct(t *testing.T) {
 	for _, tc := range testCases {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
-			t.Errorf("%s", tc.name)
 			t.Errorf("%s: Add(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
 		}
 	}
