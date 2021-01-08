@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-// Todo:
 type testCase struct {
 	a, b        float64
 	want        float64
@@ -39,15 +38,15 @@ func TestAddStruct(t *testing.T) {
 	testCases := []*testCase{
 		{a: 2, b: 2, want: 4, name: "Two positive numbers that sum to a positive"},
 		{a: -1, b: -1, want: -2, name: "Two negative numbers that sum ot a negative"},
-		{a: -5, b: 0, want: 0, name: "Negative and positive number that sum Zero"},
+		{a: -5, b: 0, want: -5, name: "Negative and positive number that sum Zero"},
 	}
 
 	// Looping over test cases
 	for _, tc := range testCases {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
-			t.Errorf("want %f, got %f", tc.want, tc.name, got)
-			//t.Errorf("Add(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, tc.name, got) //Todo:
+			t.Errorf("%s", tc.name)
+			t.Errorf("Add(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got) // Todo: Why cannot add (tc.name) here
 		}
 	}
 }
@@ -87,7 +86,6 @@ func TestMultiply(t *testing.T) {
 	}
 }
 
-// Todo: InComplete TestDivide function
 func TestDivide(t *testing.T) {
 	t.Parallel()
 	testCases := []*testCase{
@@ -103,7 +101,7 @@ func TestDivide(t *testing.T) {
 			// A shorter way to write this logic is:
 			/*
 			    if tc.errExpected != (err != nil) {
-			    t.Fatalf(...)
+			    t.Fatalf(...) // Todo: Not working
 			   }
 			*/
 		}
