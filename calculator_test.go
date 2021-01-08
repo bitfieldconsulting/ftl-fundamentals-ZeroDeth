@@ -2,7 +2,9 @@ package calculator_test
 
 import (
 	"calculator"
-	"testing"
+  "math/rand"
+  "testing"
+  "time"
 )
 
 //
@@ -45,6 +47,24 @@ func TestAddStruct(t *testing.T) {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("want %f, got %f", tc.want, tc.name, got)
+			//t.Errorf("Add(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, tc.name, got)
+		}
+	}
+}
+
+// Write a new test for one or more of your functions which generates random test inputs
+// instead of using prepared cases (you can use the math/rand library for this).
+func TestAddRandom(t *testing.T) {
+	t.Parallel()
+  rand.Seed(time.Now().UTC().UnixNano())
+
+  for i := 0; i < 100; i++ {
+		a := rand.Float64()
+		b := rand.Float64()
+		sum := a + b
+		got := calculator.Add(a, b)
+		if sum != got {
+      t.Fatalf("Add(%f, %f) ; want %f, got %f", a, b, sum, got)
 		}
 	}
 }
