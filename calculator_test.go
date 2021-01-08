@@ -1,8 +1,8 @@
 package calculator_test
 
 import (
-	"calculator"
-	"testing"
+  "calculator"
+  "testing"
 )
 
 //
@@ -45,9 +45,27 @@ func TestAddStruct(t *testing.T) {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("want %f, got %f", tc.want, tc.name, got)
+			//t.Errorf("Add(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, tc.name, got)
 		}
 	}
 }
+
+//func TestAddRandom(t *testing.T) {
+//	t.Parallel()
+//	iterations := 100
+//	for i := 0; i < iterations; i++ {
+//		a := rand.Float64() * 10
+//		b := rand.Float64() * 10
+//
+//		sum := a + b
+//
+//		got := calculator.Add(a, b)
+//		if sum != got {
+//			t.Errorf("Expected sum of %f and %f to match", a, b)
+//			t.Errorf("Got %f and %f (the latter from Add)", sum, got)
+//		}
+//	}
+//}
 
 func TestSubtract(t *testing.T) {
 	t.Parallel()
@@ -72,11 +90,21 @@ func TestDivide(t *testing.T) {
 	t.Parallel()
 	testCases := []*testCase{
 		{a: 6, b: 0, want: 0, errExpected: true},
-		//{a: 4, b: 2, want: 5.5, errExpected: false},
+		{a: 4, b: 2, want: 5.5, errExpected: false},
 	}
 	for _, tc := range testCases {
 		got, err := calculator.Divide(tc.a, tc.b)
+    errReceived := err != nil
+    if tc.errExpected != errReceived {
+      t.Fatalf("Divide(%f, %f): unexpected error status: %v", tc.a, tc.b, errReceived)
 
+      // A shorter way to write this logic is:
+      /*
+          if tc.errExpected != (err != nil) {
+          t.Fatalf(...)
+         }
+      */
+    }
 		if tc.errExpected && tc.want != got {
 			t.Errorf("Divide(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
