@@ -8,9 +8,9 @@ import (
 )
 
 type testCase struct {
+	name        string
 	a, b        float64
 	want        float64
-	name        string
 	errExpected bool
 }
 
