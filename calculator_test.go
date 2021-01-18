@@ -11,7 +11,8 @@ type testCase struct {
 	name        string
 	a, b        float64
 	want        float64
-	errExpected bool
+  input       float64
+  errExpected bool
 }
 
 func TestAdd(t *testing.T) {
@@ -113,4 +114,22 @@ func TestDivide(t *testing.T) {
 			t.Errorf("Divide(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
 	}
+}
+
+func TestSqrt(t *testing.T) {
+  t.Parallel()
+  testCases := []*testCase{
+    {a: 6, want: 0, errExpected: true},
+    {a: -4, want: 5.5, errExpected: false},
+  }
+  for _, tc := range testCases {
+    got, err := calculator.Sqrt(tc.a)
+    errReceived := err != nil
+    if tc.errExpected != errReceived {
+      t.Fatalf("unexpected error status: %v", errReceived)
+    }
+    if tc.errExpected && tc.want != got {
+      t.Errorf("%s: Sqrt(%f) want %f, got %f", tc.a, tc.want, got) // Todo: Not working
+    }
+  }
 }
