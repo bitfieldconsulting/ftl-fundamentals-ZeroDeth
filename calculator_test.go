@@ -75,12 +75,19 @@ func TestSubtract(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	t.Parallel()
-	var want float64 = 4
-	got := calculator.Multiply(2, 2)
-	if want != got {
-		t.Errorf("want %f, got %f", want, got)
-	}
+  t.Parallel()
+  testCases := []*testCase{
+    {a: 2, b: 2, want: 4, name: "Two multiply by two are four"},
+    {a: 1, b: 2, want: 2, name: "One multiply by two are two"},
+    {a: 5, b: 0, want: 0, name: "Five multiply by zero are zero"},
+  }
+
+  for _, tc := range testCases {
+    got := calculator.Multiply(tc.a, tc.b)
+    if tc.want != got {
+      t.Errorf("%s: Multiply(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+    }
+  }
 }
 
 func TestDivide(t *testing.T) {
