@@ -59,12 +59,19 @@ func TestAddRandom(t *testing.T) {
 }
 
 func TestSubtract(t *testing.T) {
-	t.Parallel()
-	var want float64 = 2
-	got := calculator.Subtract(4, 2)
-	if want != got {
-		t.Errorf("want %f, got %f", want, got)
-	}
+  t.Parallel()
+  testCases := []*testCase{
+    {a: 2, b: 2, want: 0, name: "Two subtract by two are zero"},
+    {a: 1, b: 2, want: -1, name: "One subtract by two are negative ones"},
+    {a: 5, b: 0, want: 5, name: "Five subtract by zero are five"},
+  }
+
+  for _, tc := range testCases {
+    got := calculator.Subtract(tc.a, tc.b)
+    if tc.want != got {
+      t.Errorf("%s: Subtract(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+    }
+  }
 }
 
 func TestMultiply(t *testing.T) {
