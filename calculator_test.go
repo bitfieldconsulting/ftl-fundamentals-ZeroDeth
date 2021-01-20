@@ -117,19 +117,30 @@ func TestDivide(t *testing.T) {
 }
 
 func TestSqrt(t *testing.T) {
-  t.Parallel()
-  testCases := []*testCase{
-    {a: 6, want: 0, errExpected: true},
-    {a: -4, want: 5.5, errExpected: false},
-  }
-  for _, tc := range testCases {
-    got, err := calculator.Sqrt(tc.a)
-    errReceived := err != nil
-    if tc.errExpected != errReceived {
-      t.Fatalf("unexpected error status: %v", errReceived)
-    }
-    if tc.errExpected && tc.want != got {
-      t.Errorf("%s: Sqrt(%f) want %f, got %f", tc.a, tc.want, got) // Todo: Not working
-    }
-  }
+	t.Parallel()
+	testCases := []struct {
+		name        string
+		a, b, want  float64
+		errExpected bool
+	}{
+		{a: 9, want: 3, errExpected: false},
+		{a: -4, want: 99, errExpected: true},
+		{a: 14, want: 3.741657, errExpected: false},
+		{a: -2, want: 99, errExpected: true},
+	}
+	for _, tc := range testCases {
+		got, err := calculator.Sqrt(tc.a)
+		errReceived := err != nil
+		if tc.errExpected != errReceived {
+			t.Fatalf("Sqrt(%f) unexpected error status: %v", tc.a, err)
+		}
+		if !tc.errExpected && !closeEnough(tc.want, got) {
+			t.Errorf("Sqrt(%f) want %f, got %f", tc.a, tc.want, got)
+		}
+	}
+}
+
+func closeEnough(a, b float64) bool {
+	var x = 0.01
+	return math.Abs(a-b) < x
 }
