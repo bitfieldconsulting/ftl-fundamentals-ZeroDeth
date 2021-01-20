@@ -33,8 +33,8 @@ func Divide(a, b float64) (float64, error) {
 
 // Sqrt returns the square root of a.
 func Sqrt(a float64) (float64, error) {
- if a < 0 {
-   return 0, fmt.Errorf("%f: ", a)
- }
- return math.Sqrt(a), nil
+	if a < 0 {
+		return 0, fmt.Errorf("%f: Sqrt of negative number is undefined", a)
+	}
+	return math.Sqrt(a), nil
 }
