@@ -2,18 +2,11 @@ package calculator_test
 
 import (
 	"calculator"
+	"math"
 	"math/rand"
 	"testing"
 	"time"
 )
-
-type testCase struct {
-	name        string
-	a, b        float64
-	want        float64
-  input       float64
-  errExpected bool
-}
 
 func TestAdd(t *testing.T) {
 	t.Parallel()
@@ -27,7 +20,10 @@ func TestAdd(t *testing.T) {
 // Introducing A slice of test Cases
 func TestAddStruct(t *testing.T) {
 	t.Parallel()
-	testCases := []*testCase{
+	testCases := []struct {
+		name       string
+		a, b, want float64
+	}{
 		{a: 2, b: 2, want: 4, name: "Two positive numbers that sum to a positive"},
 		{a: -1, b: -1, want: -2, name: "Two negative numbers that sum ot a negative"},
 		{a: -5, b: 0, want: -5, name: "Negative and positive number that sum Zero"},
@@ -60,40 +56,50 @@ func TestAddRandom(t *testing.T) {
 }
 
 func TestSubtract(t *testing.T) {
-  t.Parallel()
-  testCases := []*testCase{
-    {a: 2, b: 2, want: 0, name: "Two subtract by two are zero"},
-    {a: 1, b: 2, want: -1, name: "One subtract by two are negative ones"},
-    {a: 5, b: 0, want: 5, name: "Five subtract by zero are five"},
-  }
+	t.Parallel()
+	testCases := []struct {
+		name       string
+		a, b, want float64
+	}{
+		{a: 2, b: 2, want: 0, name: "Two subtract by two are zero"},
+		{a: 1, b: 2, want: -1, name: "One subtract by two are negative ones"},
+		{a: 5, b: 0, want: 5, name: "Five subtract by zero are five"},
+	}
 
-  for _, tc := range testCases {
-    got := calculator.Subtract(tc.a, tc.b)
-    if tc.want != got {
-      t.Errorf("%s: Subtract(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
-    }
-  }
+	for _, tc := range testCases {
+		got := calculator.Subtract(tc.a, tc.b)
+		if tc.want != got {
+			t.Errorf("%s: Subtract(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+		}
+	}
 }
 
 func TestMultiply(t *testing.T) {
-  t.Parallel()
-  testCases := []*testCase{
-    {a: 2, b: 2, want: 4, name: "Two multiply by two are four"},
-    {a: 1, b: 2, want: 2, name: "One multiply by two are two"},
-    {a: 5, b: 0, want: 0, name: "Five multiply by zero are zero"},
-  }
+	t.Parallel()
+	testCases := []struct {
+		name       string
+		a, b, want float64
+	}{
+		{a: 2, b: 2, want: 4, name: "Two multiply by two are four"},
+		{a: 1, b: 2, want: 2, name: "One multiply by two are two"},
+		{a: 5, b: 0, want: 0, name: "Five multiply by zero are zero"},
+	}
 
-  for _, tc := range testCases {
-    got := calculator.Multiply(tc.a, tc.b)
-    if tc.want != got {
-      t.Errorf("%s: Multiply(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
-    }
-  }
+	for _, tc := range testCases {
+		got := calculator.Multiply(tc.a, tc.b)
+		if tc.want != got {
+			t.Errorf("%s: Multiply(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+		}
+	}
 }
 
 func TestDivide(t *testing.T) {
 	t.Parallel()
-	testCases := []*testCase{
+	testCases := []struct {
+		name        string
+		a, b, want  float64
+		errExpected bool
+	}{
 		{a: 6, b: 0, want: 0, errExpected: true},
 		{a: 4, b: 2, want: 5.5, errExpected: false},
 	}

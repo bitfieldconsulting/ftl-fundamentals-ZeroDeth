@@ -2,9 +2,9 @@
 package calculator
 
 import (
-  "errors"
-  "fmt"
-  "math"
+	"errors"
+	"fmt"
+	"math"
 )
 
 // Add takes two numbers and returns the result of adding them together.
