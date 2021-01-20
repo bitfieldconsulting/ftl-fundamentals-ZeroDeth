@@ -101,14 +101,7 @@ func TestDivide(t *testing.T) {
 		got, err := calculator.Divide(tc.a, tc.b)
 		errReceived := err != nil
 		if tc.errExpected != errReceived {
-			t.Fatalf("Divide(%f, %f): unexpected error status: %v", tc.a, tc.b, errReceived)
-
-			// A shorter way to write this logic is:
-			/*
-			    if tc.errExpected != (err != nil) {
-			    t.Fatalf(...) // Todo: Not working
-			   }
-			*/
+			t.Fatalf("Divide(%f, %f): unexpected error status: %v", tc.a, tc.b, err)
 		}
 		if tc.errExpected && tc.want != got {
 			t.Errorf("Divide(%f, %f) ; want %f, got %f", tc.a, tc.b, tc.want, got)
